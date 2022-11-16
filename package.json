@@ -1,0 +1,15 @@
+{
+  "name": "ehpadjs",
+  "version": "0.0.01",
+  "description": "okok",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mathcovax",
+  "license": "ISC",
+  "type": "module",
+  "bin": {
+    "ehpadjs": "index.js"
+  }
+}
