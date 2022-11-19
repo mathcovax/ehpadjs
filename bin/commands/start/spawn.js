@@ -46,7 +46,7 @@ export const args = JSON.parse(argv[2].substring(1).substring(0, argv[2].length-
     if(args.webSocket)Root.webSocket = args.webSocket;
     if(args.webStore)Root.webStore = args.webStore;
     
-    await Auto.init()
+    await Auto.init();
 
     Root.init(undefined, () => {
         if(args.detached)subProcess.isReady = Date.now();

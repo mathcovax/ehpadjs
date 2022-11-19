@@ -23,7 +23,7 @@ export default class Auto{
 
         this.Launch.components();
         this.Launch.pages();
-        this.Launch.accesses();
+        await this.Launch.accesses();
     }
 
     static get Launch(){
