@@ -1,17 +1,6 @@
-/**
- * @typedef {Object} default
- * @property {Number} port
- * @property {()void} callback
- * @property {Boolean} webSocket
- * @property {Boolean} webStore
- * @property {[path]} import
- * @property {Boolean} watcher
- * @property {Boolean} nodemon
- * @property {Boolean} detached
- * @property {[command]} command
- */
+import { Config } from "ehpadjs";
 
-export default {
+export default new Config({
     port: 80,
     callback: () => {
         console.log("ready");
@@ -22,5 +11,6 @@ export default {
     watcher: false,
     nodemon: false,
     detached: false,
-    commands: []
-}
+    commands: [],
+    pson: true,
+});

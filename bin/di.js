@@ -1,7 +1,7 @@
 import fs from "fs"
 
 export default async function di(path){
-    let temp = "tmp-vieujs-" + Date.now() + (Math.random() + 1).toString(36) + ".mjs"
+    let temp = "tmp-ehpadjs-" + Date.now() + (Math.random() + 1).toString(36) + ".mjs"
     let tempath = path.split("/")
     tempath.pop()
     tempath = tempath.join("/") + "/" + temp

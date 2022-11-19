@@ -1,6 +1,7 @@
 import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
-import { VieuxjsDirectoriesFile } from "vieuxjs/lib/directories.js"
+import { VieuxjsDirectoriesFile } from "vieuxjs/lib/directories.js";
+import fs from "fs";
 
 export class EhpadjsDirectories{
     static #main = resolve(dirname(fileURLToPath(import.meta.url)));
@@ -10,10 +11,6 @@ export class EhpadjsDirectories{
 
     static get bin(){
         return this.main + "/bin";
-    }
-
-    static get auto(){
-        return this.main + "/auto";
     }
 
     static get src(){
@@ -32,12 +29,6 @@ export class EhpadjsDirectoriesBin{
 
     static get subProcess(){
         return this.main + "/subProcess";
-    }
-}
-
-export class EhpadjsDirectoriesAuto{
-    static get main(){
-        return EhpadjsDirectories.auto;
     }
 }
 
@@ -66,22 +57,130 @@ export class Models{
 
     static access = this.main + "/access.js";
 
-    static gson = this.main + "/gson.json";
-
     static method = this.main + "/method.js";
 
     static socket = this.main + "/socket.js";
+
+    static pson = this.main + "/pson.json";
+
+    static get gson(){
+        return this.main + "/gson.json";
+    }
 
     static get config(){
         return this.main + "/ehpad.config.js";
     }
 
-    static get mainIndex(){
+    static get index(){
         return VieuxjsDirectoriesFile.mainIndex;
     }
 
     static get loadingOverlay(){
         return VieuxjsDirectoriesFile.loadingOverlay;
+    }
+
+    static get rw(){
+        return class {
+            static get page(){
+                return fs.readFileSync(Models.page, "utf-8");
+            }
+            static set page(arg){
+                try{
+                    fs.mkdirSync(arg.split("/").slice(0, -1).join("/"), {recursive: true});
+                }catch{}
+                fs.writeFileSync(arg, this.page);
+            }
+
+            static get component(){
+                return fs.readFileSync(Models.component, "utf-8");
+            }
+            static set component(arg){
+                try{
+                    fs.mkdirSync(arg.split("/").slice(0, -1).join("/"), {recursive: true});
+                }catch{}
+                fs.writeFileSync(arg, this.component);
+            }
+
+            static get access(){
+                return fs.readFileSync(Models.access, "utf-8");
+            }
+            static set access(arg){
+                try{
+                    fs.mkdirSync(arg.split("/").slice(0, -1).join("/"), {recursive: true});
+                }catch{}
+                fs.writeFileSync(arg, this.access);
+            }
+
+            static get method(){
+                return fs.readFileSync(Models.method, "utf-8");
+            }
+            static set method(arg){
+                try{
+                    fs.mkdirSync(arg.split("/").slice(0, -1).join("/"), {recursive: true});
+                }catch{}
+                fs.writeFileSync(arg, this.method);
+            }
+
+            static get socket(){
+                return fs.readFileSync(Models.socket, "utf-8");
+            }
+            static set socket(arg){
+                try{
+                    fs.mkdirSync(arg.split("/").slice(0, -1).join("/"), {recursive: true});
+                }catch{}
+                fs.writeFileSync(arg, this.socket);
+            }
+
+            static get pson(){
+                return fs.readFileSync(Models.pson, "utf-8");
+            }
+            static set pson(arg){
+                try{
+                    fs.mkdirSync(arg.split("/").slice(0, -1).join("/"), {recursive: true});
+                }catch{}
+                fs.writeFileSync(arg, this.pson);
+            }
+
+            static get gson(){
+                return fs.readFileSync(Models.gson, "utf-8");
+            }
+            static set gson(arg){
+                try{
+                    fs.mkdirSync(arg.split("/").slice(0, -1).join("/"), {recursive: true});
+                }catch{}
+                fs.writeFileSync(arg, this.gson);
+            }
+
+            static get config(){
+                return fs.readFileSync(Models.config, "utf-8");
+            }
+            static set config(arg){
+                try{
+                    fs.mkdirSync(arg.split("/").slice(0, -1).join("/"), {recursive: true});
+                }catch{}
+                fs.writeFileSync(arg, this.config);
+            }
+
+            static get index(){
+                return fs.readFileSync(Models.index, "utf-8");
+            }
+            static set index(arg){
+                try{
+                    fs.mkdirSync(arg.split("/").slice(0, -1).join("/"), {recursive: true});
+                }catch{}
+                fs.writeFileSync(arg, this.index);
+            }
+
+            static get loadingOverlay(){
+                return fs.readFileSync(Models.loadingOverlay, "utf-8");
+            }
+            static set loadingOverlay(arg){
+                try{
+                    fs.mkdirSync(arg.split("/").slice(0, -1).join("/"), {recursive: true});
+                }catch{}
+                fs.writeFileSync(arg, this.loadingOverlay);
+            }
+        }
     }
 }
 
@@ -93,6 +192,11 @@ export class Directories{
     static name_workdir = "src";
     static get workdir(){
         return resolve(this.main, this.name_workdir);
+    }
+
+    static name_assets = "assets";
+    static get assets(){
+        return resolve(this.workdir, this.name_assets);
     }
 
     static name_components = "components";
@@ -119,6 +223,11 @@ export class Directories{
     static get psons(){
         return resolve(this.workdir, this.name_psons);
     }
+
+    static sockets = "sockets";
+    static get sockets(){
+        return resolve(this.workdir, this.name_sockets);
+    }
 }
 
 export class Files{
@@ -140,4 +249,21 @@ export class Files{
     static get gson(){
         return resolve(Directories.workdir, this.name_gson);
     }
+
+    static get extname(){
+        return class {
+            static pages = ".html";
+
+            static components = ".html";
+
+            static methods = ".mjs";
+
+            static accesses = ".mjs";
+            
+            static sockets = ".mjs";
+
+            static psons = ".json";
+        }
+    }
 }
+

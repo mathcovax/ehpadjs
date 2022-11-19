@@ -39,6 +39,7 @@ export default class start extends cmd{
             detached: this.detached || config.detached,
             webSocket: this.webSocket || config.webSocket,
             webStore: this.webStore || config.webStore,
+            pson: this.pson || config.pson
         });
         this.spawn("node", [EhpadjsDirectoriesBin.commands + "/start/spawn.js", `'${a}'`], {env: {...process.env}, title:"ehpadjs", ...this.spawnOption});
     }
@@ -69,6 +70,8 @@ export default class start extends cmd{
     commands = false;
 
     detached = false;
+
+    pson = false;
 
     options = {
         "cmd": {
@@ -145,6 +148,12 @@ export default class start extends cmd{
             arg: false,
             fnc: () => {
                 this.nodemon = true;
+            }
+        },
+        "pson": {
+            arg: false,
+            fnc: () => {
+                this.pson = true;
             }
         }
         

@@ -2,6 +2,7 @@ import { subProcess } from "../../subProcess/subProcess.js";
 import cmd from "../../bin.js"
 import { resolve } from "path";
 import { Root } from "vieuxjs";
+import Auto from "./auto/auto.js";
 
 const argv = process.argv;
 export const args = JSON.parse(argv[2].substring(1).substring(0, argv[2].length-2));
@@ -45,6 +46,8 @@ export const args = JSON.parse(argv[2].substring(1).substring(0, argv[2].length-
     if(args.webSocket)Root.webSocket = args.webSocket;
     if(args.webStore)Root.webStore = args.webStore;
     
+    await Auto.init()
+
     Root.init(undefined, () => {
         if(args.detached)subProcess.isReady = Date.now();
     })

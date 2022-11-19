@@ -2,7 +2,7 @@
 
 import { execSync, spawnSync } from "child_process";
 import fs from "fs";
-import { EhpadjsDirectories, EhpadjsDirectoriesBin, Files, Models } from "../directories.js";
+import { EhpadjsDirectories, EhpadjsDirectoriesBin } from "../directories.js";
 
 var args = process.argv;
 args = args.slice(2, process.argv.length);
@@ -59,13 +59,7 @@ export default class cmd{
                     break;
 
                 case "config":
-                    if(!fs.existsSync(Files.config)){
-                        fs.writeFileSync(Files.config, fs.readFileSync(Models.config));
-                        console.log("ehpadjs: The file for customConfig was created.");
-                    }
-                    else{
-                        console.log("ehpadjs: CustomConfig file already exists in this project.");
-                    }
+                    new (await import("file:///" + EhpadjsDirectoriesBin.commands + "/config.js")).default(args);
                     break;
                 
                 case "version":

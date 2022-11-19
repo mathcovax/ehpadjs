@@ -23,24 +23,22 @@ export class subProcess{
     }
 
     static get error(){
-        return subProcessError;
-    }
-}
-
-class subProcessError extends subProcess{
-    static set message(arg=""){
-        fs.writeFileSync(this.main + "/error/message", arg.toString());
-    }
-
-    static get message(){
-        return fs.readFileSync(this.main + "/error/message", "utf-8");
-    }
-
-    static set timespan(arg=""){
-        fs.writeFileSync(this.main + "/error/timespan", arg.toString());
-    }
-
-    static get timespan(){
-        return fs.readFileSync(this.main + "/error/timespan", "utf-8");
+        return class {
+            static set message(arg=""){
+                fs.writeFileSync(subProcess.main + "/error/message", arg.toString());
+            }
+        
+            static get message(){
+                return fs.readFileSync(subProcess.main + "/error/message", "utf-8");
+            }
+        
+            static set timespan(arg=""){
+                fs.writeFileSync(subProcess.main + "/error/timespan", arg.toString());
+            }
+        
+            static get timespan(){
+                return fs.readFileSync(subProcess.main + "/error/timespan", "utf-8");
+            }
+        }
     }
 }
