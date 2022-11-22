@@ -224,7 +224,12 @@ export class Directories{
         return resolve(this.workdir, this.name_psons);
     }
 
-    static sockets = "sockets";
+    static name_gsons = "gsons";
+    static get gsons(){
+        return resolve(this.workdir, this.name_gsons);
+    }
+
+    static name_sockets = "sockets";
     static get sockets(){
         return resolve(this.workdir, this.name_sockets);
     }
@@ -263,6 +268,8 @@ export class Files{
             static sockets = ".mjs";
 
             static psons = ".json";
+
+            static gsons = ".json";
         }
     }
 }

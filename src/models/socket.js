@@ -1,27 +1,25 @@
 import { Server, Socket } from "socket.io"
 
-export default {
-    /**
-     * @param {Socket} socket
-     * @return {Boolean}
-     */
-    acces(socket){
-        return false
-    },
+/**
+ * @param {Socket} socket
+ * @return {(Boolean | String)}
+ */
+export function access(socket){
+    return true
+}
 
-    /**
-     * @param {Socket} socket 
-     */
-    client(socket){
+/**
+ * @param {Socket} socket 
+ */
+export function client(socket){
+    
+}
 
-    },
+/**
+ * 
+ * @param {Socket} socket 
+ * @param {Server} io 
+ */
+export function server(socket, io){
 
-    /**
-     * 
-     * @param {Socket} socket 
-     * @param {Server} io 
-     */
-    server(socket, io){
-
-    }
 }

@@ -28,6 +28,9 @@ export default class start extends cmd{
         if(!fs.existsSync(Files.config)){
             cmd.command("config");
         }
+        if(subProcess.pid !== ""){
+            cmd.command("stop", ["-m"]);
+        }
         let config = (await import("file:///" + Files.config)).default;
         let a = JSON.stringify({
             import: this.import || config.import,
@@ -84,9 +87,6 @@ export default class start extends cmd{
             arg: false,
             fnc: () => {
                 this.spawn = (a, b, c) => {
-                    if(subProcess.pid != ""){
-                        try{cmd.command("stop", ["-m"]);}catch{};
-                    }
                     let temp = spawn(a, b, c);
                     temp.unref();
 
@@ -97,7 +97,7 @@ export default class start extends cmd{
                             clearInterval(inter);
                             console.log("Vieujs : " + (this.startMessage || "ready"));
                         }
-                        else if(!subProcess.pid && !subProcess.isReady && Number(subProcess.error.timespan || 0) >= timespan){
+                        else if(!subProcess.isReady && Number(subProcess.error.timespan || 0) >= timespan){
                             clearInterval(inter);
                             console.log("Vieujs error :");
                             console.error(subProcess.error.message);

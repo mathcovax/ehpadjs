@@ -1,8 +1,8 @@
 import { subProcess } from "../../subProcess/subProcess.js";
-import cmd from "../../bin.js"
 import { resolve } from "path";
 import { Root } from "vieuxjs";
 import Auto from "./auto/auto.js";
+import nodemon from "./nodemon.js";
 
 const argv = process.argv;
 export const args = JSON.parse(argv[2].substring(1).substring(0, argv[2].length-2));
@@ -28,9 +28,7 @@ export const args = JSON.parse(argv[2].substring(1).substring(0, argv[2].length-
         subProcess.error.timespan = "";
         subProcess.error.message = "";
     }
-    else if(subProcess.pid !== ""){
-        cmd.command("stop", ["-m"]);
-    }
+    if(args.nodemon)nodemon();
     if(args.commands.length){
         for(const cmd of args.commands){
             spawnSync(cmd.split(" ").shift(), cmd.splice(1, cmd.length), {env: {...process.env}, title:"vieujs", cwd: process.cwd(), stdio: "inherit"});

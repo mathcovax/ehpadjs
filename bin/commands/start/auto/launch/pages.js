@@ -13,5 +13,5 @@ export default function pages(){
             else if(file.endsWith(Files.extname.pages))page(resolve(path, file));
             else continue;
         }
-    })(Directories.pages)
+    })(Directories.pages);
 }

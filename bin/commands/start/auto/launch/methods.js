@@ -1,16 +1,16 @@
 import fs from "fs";
 import { resolve } from "path";
 import { Directories, Files } from "../../../../../directories.js";
-import access from "../add/access.js";
+import method from "../add/method.js";
 
-export default async function accesses(){
-    if(!fs.existsSync(Directories.accesses))fs.mkdirSync(Directories.accesses);
+export default async function methods(){
+    if(!fs.existsSync(Directories.methods))fs.mkdirSync(Directories.methods);
 
     await (async function find(path){
         for await(const file of fs.readdirSync(path)){
             if(fs.lstatSync(resolve(path, file)).isDirectory())find(resolve(path, file));
-            else if(file.endsWith(Files.extname.accesses))await access(resolve(path, file));
+            else if(file.endsWith(Files.extname.methods))await method(resolve(path, file));
             else continue;
         }
-    })(Directories.accesses);
+    })(Directories.methods);
 }
