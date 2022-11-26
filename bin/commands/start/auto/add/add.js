@@ -5,6 +5,7 @@ import access from "./access.js";
 import socket from "./socket.js";
 import method from "./method.js";
 import gson from "./gson.js";
+import handler from "./handler.js";
 
 export default class Add {
     static get page(){
@@ -33,5 +34,9 @@ export default class Add {
 
     static get method(){
         return method;
+    }
+
+    static get handler(){
+        return handler;
     }
 }

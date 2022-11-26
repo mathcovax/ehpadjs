@@ -4,6 +4,7 @@ import accesses from "./accesses.js";
 import sockets from "./sockets.js";
 import methods from "./methods.js";
 import gsons from "./gsons.js"
+import handlers from "./handlers.js";
 
 export default class Launch {
     static get pages(){
@@ -28,5 +29,9 @@ export default class Launch {
 
     static get gsons(){
         return gsons;
+    }
+
+    static get handlers(){
+        return handlers;
     }
 }

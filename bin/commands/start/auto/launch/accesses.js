@@ -8,7 +8,7 @@ export default async function accesses(){
 
     await (async function find(path){
         for await(const file of fs.readdirSync(path)){
-            if(fs.lstatSync(resolve(path, file)).isDirectory())find(resolve(path, file));
+            if(fs.lstatSync(resolve(path, file)).isDirectory())await find(resolve(path, file));
             else if(file.endsWith(Files.extname.accesses))await access(resolve(path, file));
             else continue;
         }

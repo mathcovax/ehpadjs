@@ -1,9 +1,7 @@
-import cmd from "../bin.js";
 import { subProcess } from "../subProcess/subProcess.js";
 
-export default class stop extends cmd{
+export default class stop{
     constructor(args=[]){
-        super();
         for(let index = 0; index < args.length; index++){
             if(args[index].startsWith(this.prefix) && this.options[args[index].replace(this.prefix, "")]){
                 if(this.options[args[index].replace(this.prefix, "")].arg){
@@ -23,8 +21,9 @@ export default class stop extends cmd{
 
     main(){
         try{
-            process.kill(Number(subProcess.pid));
-            if(this.message)console.log("Vieujs : Process " + subProcess.pid + " is stopped.");
+            if(subProcess.pidWatch)process.kill(Number(subProcess.pidWatch));
+            else process.kill(Number(subProcess.pid));
+            if(this.message)console.log("ehpadjs : Process " + subProcess.pid + " is stopped.");
         }catch{
             
         }

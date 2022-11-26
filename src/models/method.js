@@ -1,18 +1,7 @@
-import express from "express"
+import { method } from "ehpadjs";
 
-/**
- * @typedef {Object} postshort
- * @property {(data: JSON) void} s
- * @property {(data: JSON) void} e
- * @property {(data: url) void} r
- * @property {(info: String) {s:(data: JSON)void, e:(data: JSON)void}} msg
- */
-
-/**
- * @param {express.Request} req
- * @param {express.Response} res
- * @param {postshort} short
- */
-export default function(req, res, short){
-    short.msg("Super message!").s({ping: "pong"});
-}
+export default method(
+    (req, res, short) => {
+        short.msg("Super message!").s({ping: "pong"});
+    }
+);

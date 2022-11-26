@@ -1,12 +1,11 @@
-import cmd from "../../bin.js";
 import { spawnSync, spawn } from "child_process";
 import { EhpadjsDirectoriesBin, Files } from "../../../directories.js";
 import { subProcess } from "../../subProcess/subProcess.js";
+import cmd from "../../bin.js";
 import fs from "fs";
 
-export default class start extends cmd{
+export default class start{
     constructor(args){
-        super();
         for(let index = 0; index < args.length; index++){
             if(args[index].startsWith(this.prefix) && this.options[args[index].replace(this.prefix, "")]){
                 if(this.options[args[index].replace(this.prefix, "")].arg){
@@ -29,22 +28,27 @@ export default class start extends cmd{
             cmd.command("config");
         }
         if(subProcess.pid !== ""){
-            cmd.command("stop", ["-m"]);
+            cmd.command("stop -m");
         }
         let config = (await import("file:///" + Files.config)).default;
-        let a = JSON.stringify({
+        let a = {
             import: this.import || config.import,
             port: this.port || config.port,
             callback: this.callback || config.callback.toString(),
             watcher: this.watcher || config.watcher,
-            nodemon: this.nodemon || config.nodemon,
+            watch: this.watch || config.watch,
             commands: this.commands || config.commands,
             detached: this.detached || config.detached,
-            webSocket: this.webSocket || config.webSocket,
+            sockets: this.sockets || config.sockets,
             webStore: this.webStore || config.webStore,
-            pson: this.pson || config.pson
-        });
-        this.spawn("node", [EhpadjsDirectoriesBin.commands + "/start/spawn.js", `'${a}'`], {env: {...process.env}, title:"ehpadjs", ...this.spawnOption});
+            psons: this.psons || config.psons,
+            gsons: this.gsons || config.gsons,
+            scss: this.scss || config.scss,
+            ignoreFiles: this.ignoreFiles || config.ignoreFiles,
+            handlers: this.handlers || config.handlers,
+        };
+        if(a.watch === true)this.spawnFile = "/start/watch.js"
+        this.spawn("node", [EhpadjsDirectoriesBin.commands + this.spawnFile, `'${JSON.stringify(a)}'`], {env: {...process.env}, title:"ehpadjs", ...this.spawnOption});
     }
 
     spawn = spawnSync;
@@ -54,6 +58,8 @@ export default class start extends cmd{
         stdio: "inherit",
     };
 
+    spawnFile = "/start/spawn.js";
+
     prefix = "-";
 
     port = false;
@@ -62,19 +68,27 @@ export default class start extends cmd{
 
     import = false;
 
-    webSocket = false;
+    sockets = false;
 
     webStore = false;
     
     watcher = false;
 
-    nodemon = false;
+    watch = false;
 
     commands = false;
 
     detached = false;
 
-    pson = false;
+    psons = false;
+
+    gsons = false;
+
+    scss = false;
+
+    ignoreFiles = false;
+
+    handlers = false;
 
     options = {
         "cmd": {
@@ -93,7 +107,7 @@ export default class start extends cmd{
                     console.log("Vieujs : launch of process...");
                     let timespan = Date.now();
                     const inter = setInterval(() => {
-                        if(subProcess.pid && (subProcess.isReady || this.nodemon || this.watcher)){
+                        if(subProcess.pid && (subProcess.isReady || this.watch || this.watcher)){
                             clearInterval(inter);
                             console.log("Vieujs : " + (this.startMessage || "ready"));
                         }
@@ -126,10 +140,10 @@ export default class start extends cmd{
                 this.import = arg.split("&&");
             }
         },
-        "socket": {
+        "sockets": {
             arg: false,
             fnc: () => {
-                this.webSocket = true;
+                this.sockets = true;
             }
         },
         "store": {
@@ -147,15 +161,44 @@ export default class start extends cmd{
         "nm": {
             arg: false,
             fnc: () => {
-                this.nodemon = true;
+                
             }
         },
-        "pson": {
+        "psons": {
             arg: false,
             fnc: () => {
-                this.pson = true;
+                this.psons = true;
+            }
+        },
+        "if": {
+            arg: true,
+            fnc: (arg) => {
+                this.ignoreFiles = arg.split("&&");
+            }
+        },
+        "gsons": {
+            arg: false,
+            fnc: () => {
+                this.gsons = true;
+            }
+        },
+        "scss": {
+            arg: false,
+            fnc: () => {
+                this.scss = true;
+            }
+        },
+        "handlers": {
+            arg: false,
+            fnc: () => {
+                this.handlers = true;
+            }
+        },
+        "watch": {
+            arg: false,
+            fnc: () => {
+                this.watch = true;
             }
         }
-        
     }
 }

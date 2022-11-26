@@ -2,6 +2,7 @@ import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 import { VieuxjsDirectoriesFile } from "vieuxjs/lib/directories.js";
 import fs from "fs";
+import { Page } from "vieuxjs";
 
 export class EhpadjsDirectories{
     static #main = resolve(dirname(fileURLToPath(import.meta.url)));
@@ -62,6 +63,8 @@ export class Models{
     static socket = this.main + "/socket.js";
 
     static pson = this.main + "/pson.json";
+
+    static handler = this.main + "/handler.js";
 
     static get gson(){
         return this.main + "/gson.json";
@@ -180,6 +183,16 @@ export class Models{
                 }catch{}
                 fs.writeFileSync(arg, this.loadingOverlay);
             }
+
+            static get handler(){
+                return fs.readFileSync(Models.handler, "utf-8");
+            }
+            static set handler(arg){
+                try{
+                    fs.mkdirSync(arg.split("/").slice(0, -1).join("/"), {recursive: true});
+                }catch{}
+                fs.writeFileSync(arg, this.handler);
+            }
         }
     }
 }
@@ -233,7 +246,23 @@ export class Directories{
     static get sockets(){
         return resolve(this.workdir, this.name_sockets);
     }
+
+    static name_scss = "scss";
+    static get scss(){
+        return resolve(this.workdir, this.name_scss);
+    }
+
+    static name_handlers = "handlers";
+    static get handlers(){
+        return resolve(this.workdir, this.name_handlers);
+    }
+
 }
+Object.defineProperty(Page, "loadPathSCSS", {
+    get: function(){
+        return Directories.scss;
+    }
+})
 
 export class Files{
     static get config(){
@@ -270,6 +299,8 @@ export class Files{
             static psons = ".json";
 
             static gsons = ".json";
+
+            static handlers = ".mjs";
         }
     }
 }

@@ -14,6 +14,14 @@ export class subProcess{
         return fs.readFileSync(this.main + "/pid", "utf-8");
     }
 
+    static set pidWatch(arg=""){
+        fs.writeFileSync(this.main + "/pidWatch", arg.toString());
+    }
+    
+    static get pidWatch(){
+        return fs.readFileSync(this.main + "/pidWatch", "utf-8");
+    }
+
     static set isReady(arg=""){
         fs.writeFileSync(this.main + "/isReady", arg.toString());
     }

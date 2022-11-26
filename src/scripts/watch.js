@@ -1,11 +1,15 @@
 const s = io({
     rejectUnauthorized: false,
     auth: {
-        name: "nodemon"
+        name: "ehpadjs-watch"
     }
 });
 
 s.on("disconnect", () => {
+    new LoadingOverlay();
+});
+
+s.on("restart", () => {
     new LoadingOverlay();
 });
 

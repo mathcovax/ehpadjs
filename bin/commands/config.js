@@ -1,10 +1,8 @@
-import cmd from "../bin.js";
 import fs from "fs";
 import { Files, Models } from "../../directories.js";
 
-export default class config extends cmd{
+export default class config{
     constructor(args=[]){
-        super();
         for(let index = 0; index < args.length; index++){
             if(args[index].startsWith(this.prefix) && this.options[args[index].replace(this.prefix, "")]){
                 if(this.options[args[index].replace(this.prefix, "")].arg){

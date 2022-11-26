@@ -2,14 +2,18 @@
  * @typedef {Object} configObj
  * @property {Number} port
  * @property {()void} callback
- * @property {Boolean} webSocket
  * @property {Boolean} webStore
  * @property {[path]} import
  * @property {Boolean} watcher
- * @property {Boolean} nodemon
+ * @property {Boolean} watch
+ * @property {[path]} ignoreFiles
  * @property {Boolean} detached
  * @property {[command]} command
- * @property {Boolean} pson
+ * @property {Boolean} handlers
+ * @property {Boolean} sockets
+ * @property {Boolean} psons
+ * @property {Boolean} gsons
+ * @property {Boolean} scss
  */
 
 

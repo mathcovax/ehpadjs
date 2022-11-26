@@ -1,10 +1,8 @@
-import cmd from "../bin.js";
 import { execSync } from "child_process";
 import { subProcess } from "../subProcess/subProcess.js";
 
-export default class status extends cmd{
+export default class status{
     constructor(args=[]){
-        super();
         for(let index = 0; index < args.length; index++){
             if(args[index].startsWith(this.prefix) && this.options[args[index].replace(this.prefix, "")]){
                 if(this.options[args[index].replace(this.prefix, "")].arg){
@@ -31,11 +29,11 @@ export default class status extends cmd{
     }
 
     linux(){
-        if(!subProcess.pid){
-            console.log("Vieujs : Nothing process running.");
+        if(!subProcess.pid && !subProcess.pidWatch){
+            console.log("ehpadjs : Nothing process running.");
         }
         else{
-            console.log("Vieujs Status :");
+            console.log("ehpadjs Status :");
             console.log("PID: " + subProcess.pid);
             try{
                 let grepInfo = execSync("lsof -i -P -n | grep " + subProcess.pid).toString()

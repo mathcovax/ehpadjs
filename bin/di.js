@@ -1,9 +1,8 @@
 import fs from "fs"
 
 export default async function di(path){
-    let temp = "tmp-ehpadjs-" + Date.now() + (Math.random() + 1).toString(36) + ".mjs";
     let tempath = path.split("/");
-    tempath.pop();
+    let temp = "tmp-ehpadjs-" + tempath.pop();
     tempath = tempath.join("/") + "/" + temp;
     fs.writeFileSync(tempath, fs.readFileSync(path));
     try{

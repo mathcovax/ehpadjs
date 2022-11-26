@@ -5,12 +5,16 @@ export default new Config({
     callback: () => {
         console.log("ready");
     },
-    webSocket: false,
     webStore: false,
     import: [],
     watcher: false,
-    nodemon: false,
+    watch: false,
+    ignoreFiles: [],
     detached: false,
     commands: [],
-    pson: true,
+    handlers: false,
+    sockets: false,
+    psons: false,
+    gsons: false,
+    scss: false,
 });

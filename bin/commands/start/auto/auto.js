@@ -4,10 +4,12 @@ import Remove from "./remove/remove.js";
 import Launch from "./launch/launch.js";
 import Add from "./add/add.js";
 import { Root } from "vieuxjs";
+import { args } from "../spawn.js";
 
 export default class Auto{
     static async init(){
         if(!fs.existsSync(Directories.workdir))fs.mkdirSync(Directories.workdir);
+        if(!fs.existsSync(Directories.scss) && args.scss === true)fs.mkdirSync(Directories.scss);
         if(!fs.existsSync(Directories.assets))fs.mkdirSync(Directories.assets);
         Root.assetsDir = Directories.assets;
         if(!fs.existsSync(Files.index) || fs.readFileSync(Files.index, "utf-8") === "")Models.rw.index = Files.index;
@@ -19,10 +21,11 @@ export default class Auto{
 
         this.Launch.gsons();
         this.Launch.components();
+        await this.Launch.sockets();
         this.Launch.pages();
         await this.Launch.accesses();
-        if(Root.webSocket === true)await this.Launch.sockets();
         await this.Launch.methods();
+        await this.Launch.handlers();
     }
 
     static get Launch(){
