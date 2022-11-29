@@ -4,6 +4,7 @@ import access from "./access.js";
 import socket from "./socket.js";
 import method from "./method.js";
 import handler from "./handler.js";
+import gson from "./gson.js";
 
 export default class Remove {
     static get page(){
@@ -25,7 +26,16 @@ export default class Remove {
     static get method(){
         return method;
     }
+
     static get handler(){
         return handler;
+    }
+
+    static get handler(){
+        return handler;
+    }
+
+    static get gson(){
+        return gson;
     }
 }

@@ -1,8 +1,9 @@
 import watcher from "watcher";
-import { subProcess } from "../../subProcess/subProcess.js";
+import { subProcess } from "../../../subProcess/subProcess.js";
 import { spawn } from "child_process";
-import { Directories, EhpadjsDirectoriesBin, Files } from "../../../directories.js";
+import { Directories, EhpadjsDirectoriesBin, Files } from "../../../../directories.js";
 import { resolve } from "path";
+await import("file:///" + Files.config);
 
 const argv = process.argv;
 argv[1] = EhpadjsDirectoriesBin.commands + "/start/spawn.js";
@@ -11,9 +12,7 @@ subProcess.pidWatch = process.pid;
 
 process.on("exit", (e) => {
     subProcess.pidWatch = "";
-    try{
-        if(subProcess.pid)process.kill(Number(subProcess.pid));
-    }catch{}
+    if(subProcess.pid)try{process.kill(Number(subProcess.pid));}catch{}
     subProcess.pid = "";
 });
 
@@ -26,7 +25,17 @@ async function launch(){
             title:"ehpadjs",
         })
         .on("close", (code) => {
-            if(code === null)resolve();
+            if(code === 0)resolve(true);
+            else {
+                let w = new watcher(Directories.workdir, {ignoreInitial: true, recursive: true});
+                w.on("all", (path) => {
+                    w.close();
+                    resolve();
+                    console.log("");
+                    console.log("restarting...");
+                    console.log("");
+                })
+            }
         })
     })
     
@@ -36,7 +45,10 @@ async function launch(){
 function ignore(path){
     if(path.indexOf("node_modules") >= 0)return true;
     if(path.indexOf("tmp-ehpadjs-") >= 0)return true;
+    if(path.startsWith(Directories.workdir))return true;
     if(path === Files.config)return true;
+    if(path === Directories.main + "/package.json")return true;
+    if(path === Directories.main + "/package-lock.json")return true;
     for(const file of args.ignoreFiles){
         if(path.startsWith(resolve(file)))return true;
     }
@@ -47,10 +59,10 @@ function ignore(path){
     console.log("");
     console.log("restarting...");
     console.log("");
-    if(subProcess.pid)process.kill(Number(subProcess.pid));
-    else launch();
+    if(subProcess.pid)try{process.kill(Number(subProcess.pid), "SIGINT");}catch{}
+    else if(subProcess.error.message)launch();
 })
 
-console.log("Starting with watch...");
+console.log("Starting with hotreload...");
 console.log("");
 launch();

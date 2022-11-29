@@ -1,4 +1,4 @@
-import { Config } from "ehpadjs";
+import { Config, Models, Directories, Files } from "ehpadjs";
 
 export default new Config({
     port: 80,
@@ -7,7 +7,7 @@ export default new Config({
     },
     webStore: false,
     import: [],
-    watcher: false,
+    hotreload: false,
     watch: false,
     ignoreFiles: [],
     detached: false,

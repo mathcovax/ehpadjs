@@ -4,7 +4,7 @@
  * @property {()void} callback
  * @property {Boolean} webStore
  * @property {[path]} import
- * @property {Boolean} watcher
+ * @property {Boolean} hotreload
  * @property {Boolean} watch
  * @property {[path]} ignoreFiles
  * @property {Boolean} detached

@@ -1,6 +1,6 @@
 {
   "name": "ehpadjs",
-  "version": "0.1.104",
+  "version": "0.1.140",
   "description": "okok",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "ehpadjs": "bin/bin.js"
   },
   "dependencies": {
-    "vieuxjs": "^0.0.34",
+    "vieuxjs": "^0.0.352",
     "watcher": "^2.0.0"
   }
 }

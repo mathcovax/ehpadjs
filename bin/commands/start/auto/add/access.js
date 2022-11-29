@@ -4,6 +4,7 @@ import fs from "fs";
 import di from "../../../../di.js"
 
 export default async function access(path){
+    if(path.split("/").pop().startsWith("tmp-ehpadjs-"))return;
     if(fs.readFileSync(path, "utf-8") === "")Models.rw.access = path;
     let fnc = (await di(path)).default;
     path = path.split("/");

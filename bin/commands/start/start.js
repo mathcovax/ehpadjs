@@ -30,12 +30,14 @@ export default class start{
         if(subProcess.pid !== ""){
             cmd.command("stop -m");
         }
+
         let config = (await import("file:///" + Files.config)).default;
+
         let a = {
             import: this.import || config.import,
             port: this.port || config.port,
             callback: this.callback || config.callback.toString(),
-            watcher: this.watcher || config.watcher,
+            hotreload: this.hotreload || config.hotreload,
             watch: this.watch || config.watch,
             commands: this.commands || config.commands,
             detached: this.detached || config.detached,
@@ -47,7 +49,9 @@ export default class start{
             ignoreFiles: this.ignoreFiles || config.ignoreFiles,
             handlers: this.handlers || config.handlers,
         };
-        if(a.watch === true)this.spawnFile = "/start/watch.js"
+
+        if(a.watch === true)this.spawnFile = "/start/watch/spawn.js";
+        else if(a.hotreload === true)this.spawnFile = "/start/hotreload/spawn.js";
         this.spawn("node", [EhpadjsDirectoriesBin.commands + this.spawnFile, `'${JSON.stringify(a)}'`], {env: {...process.env}, title:"ehpadjs", ...this.spawnOption});
     }
 
@@ -72,7 +76,7 @@ export default class start{
 
     webStore = false;
     
-    watcher = false;
+    hotreload = false;
 
     watch = false;
 
@@ -152,12 +156,6 @@ export default class start{
                 this.webStore = true;
             }
         },
-        "w": {
-            arg: false,
-            fnc: () => {
-                this.watcher = true;
-            }
-        },
         "nm": {
             arg: false,
             fnc: () => {
@@ -199,6 +197,12 @@ export default class start{
             fnc: () => {
                 this.watch = true;
             }
-        }
+        },
+        "hotreload": {
+            arg: false,
+            fnc: () => {
+                this.hotreload = true;
+            }
+        },
     }
 }
