@@ -15,7 +15,7 @@ import fs from "fs";
     auto.Remove.component(path);
     if(use.indexOf("*") >= 0){
         Root.makeImportBody();
-        use = ["*"]
+        use = "*";
     }
     Root.io.emit("hotreload", use);
 })
@@ -23,5 +23,5 @@ import fs from "fs";
     if(!path.endsWith(Files.extname.components))return;
     let component = Root.getComponent(path.replace(Directories.components + "/", "").split(Files.extname.components).slice(0, -1).join(Files.extname.components).replace("/", "."));
     component.html = fs.readFileSync(path, "utf-8");
-    Root.io.emit("hotreload", [...(component.use["*"]?["*"]:Object.keys(component.use))]);
+    Root.io.emit("hotreload", component.use["*"]?"*":Object.keys(component.use));
 });

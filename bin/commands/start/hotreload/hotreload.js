@@ -34,4 +34,8 @@ export default async function hotreload(){
     await import("file:///" + EhpadjsDirectoriesBin.commands + "/start/hotreload/watcher/components.js");
     await import("file:///" + EhpadjsDirectoriesBin.commands + "/start/hotreload/watcher/psons.js");
     await import("file:///" + EhpadjsDirectoriesBin.commands + "/start/hotreload/watcher/gsons.js");
+    await import("file:///" + EhpadjsDirectoriesBin.commands + "/start/hotreload/watcher/accesses.js");
+    await import("file:///" + EhpadjsDirectoriesBin.commands + "/start/hotreload/watcher/handlers.js");
+    await import("file:///" + EhpadjsDirectoriesBin.commands + "/start/hotreload/watcher/methods.js");
+    await import("file:///" + EhpadjsDirectoriesBin.commands + "/start/hotreload/watcher/sockets.js");
 }

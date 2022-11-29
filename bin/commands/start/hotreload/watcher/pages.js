@@ -1,5 +1,4 @@
 import { Root } from "vieuxjs";
-import toWindow from "vieuxjs/lib/toWindow.js";
 import watcher from "watcher";
 import { Directories, Files } from "../../../../../directories.js";
 import auto from "../../auto/auto.js";
@@ -32,7 +31,7 @@ import fs from "fs";
     for(const key in Root.pages){
         Root.pages[key].page.render();
     }
-    Root.io.emit("hotreload", ["*"]);
+    Root.io.emit("hotreload", "*");
 });
 
 (new watcher(Files.loadingOverlay, {ignoreInitial: true}))
@@ -44,5 +43,5 @@ import fs from "fs";
     for(const key in Root.pages){
         Root.pages[key].page.render();
     }
-    Root.io.emit("hotreload", ["*"]);
+    Root.io.emit("hotreload", "*");
 });

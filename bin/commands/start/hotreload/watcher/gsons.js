@@ -3,8 +3,9 @@ import watcher from "watcher";
 import { Directories, Files, Models } from "../../../../../directories.js";
 import auto from "../../auto/auto.js";
 import fs from "fs";
+import { args } from "../../spawn.js";
 
-(new watcher(Directories.gsons, {ignoreInitial: true, recursive: true}))
+if(args.gsons === true)(new watcher(Directories.gsons, {ignoreInitial: true, recursive: true}))
 .on("add", (path) => {
     if(!path.endsWith(Files.extname.gsons))return;
     Models.rw.gson = path;

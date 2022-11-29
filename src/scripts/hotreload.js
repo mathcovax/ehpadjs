@@ -13,9 +13,13 @@ s.on("restart", async () => {
 });
 
 s.on("hotreload", (arr) => {
-    for(const id of arr){
-        if(id === document.body.dataset.vieuxjsPage)ToPage.reload();
-        else if(id === "*") window.location.reload();
+    if(arr === "*")window.location.reload();
+    else{
+        for(const id of arr){
+            if(id === document.body.dataset.vieuxjsPage || id === "*"){
+                ToPage.reload();
+            }
+        }
     }
 })
 
