@@ -64,8 +64,8 @@ export default class cmd{
 
     }
 
-    static command(cmd){
-        return execSync("npx ehpadjs " + cmd, {env: {...process.env}, cwd: process.cwd(), stdio: "inherit"});
+    static command(args){
+        return new cmd(args.split(" "));
     }
 
 }

@@ -16,6 +16,7 @@ process.on("exit", (e) => {
     subProcess.pid = "";
 });
 
+var w = null;
 async function launch(){
     await new Promise((resolve) => {
         spawn(argv[0], argv.slice(1), {
@@ -25,11 +26,12 @@ async function launch(){
             title:"ehpadjs",
         })
         .on("close", (code) => {
-            if(code === 0)resolve(true);
+            if(code === 0)resolve();
             else {
-                let w = new watcher(Directories.workdir, {ignoreInitial: true, recursive: true});
+                w = new watcher(Directories.main, {ignoreInitial: true, recursive: true});
                 w.on("all", (path) => {
                     w.close();
+                    w = null;
                     resolve();
                     console.log("");
                     console.log("restarting...");
@@ -56,6 +58,7 @@ function ignore(path){
 };
 
 (new watcher(Directories.main, {ignoreInitial: true, recursive: true, ignore: ignore})).on("all", (event, path) => {
+    if(w !== null)return
     console.log("");
     console.log("restarting...");
     console.log("");

@@ -28,6 +28,7 @@ import fs from "fs";
 })
 .on("change", (path) => {
     Root.makeIndex();
+    Root.makeImportBody();
     for(const key in Root.pages){
         Root.pages[key].page.render();
     }
@@ -40,6 +41,7 @@ import fs from "fs";
 })
 .on("change", (path) => {
     Root.makeIndex();
+    Root.makeImportBody();
     for(const key in Root.pages){
         Root.pages[key].page.render();
     }

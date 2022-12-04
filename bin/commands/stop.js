@@ -22,7 +22,7 @@ export default class stop{
     main(){
         try{
             if(subProcess.pidWatch)process.kill(Number(subProcess.pidWatch));
-            else process.kill(Number(subProcess.pid));
+            else if(Number(subProcess.pid) != process.pid) process.kill(Number(subProcess.pid));
             if(this.message)console.log("ehpadjs : Process " + subProcess.pid + " is stopped.");
         }catch{
             

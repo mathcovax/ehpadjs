@@ -284,24 +284,51 @@ export class Files{
         return resolve(Directories.workdir, this.name_gson);
     }
 
+    static get Scss(){
+        return Scss;
+    }
+
     static get extname(){
-        return class {
-            static pages = ".html";
-
-            static components = ".html";
-
-            static methods = ".mjs";
-
-            static accesses = ".mjs";
-            
-            static sockets = ".mjs";
-
-            static psons = ".json";
-
-            static gsons = ".json";
-
-            static handlers = ".mjs";
-        }
+        return Extname;
     }
 }
 
+class Extname{
+    static pages = ".html";
+
+    static components = ".html";
+
+    static methods = ".mjs";
+
+    static accesses = ".mjs";
+    
+    static sockets = ".mjs";
+
+    static psons = ".json";
+
+    static gsons = ".json";
+
+    static handlers = ".mjs";
+
+    static get scss(){
+        return ".scss";
+    }
+}
+
+class Scss{
+    static #input = "global.scss";
+    static get input(){
+        return resolve(Directories.scss, this.#input);
+    }
+    static set input(arg){
+        this.#input = arg;
+    }
+
+    static #output = "global.css";
+    static get output(){
+        return resolve(Directories.assets, this.#output);
+    }
+    static set output(arg){
+        this.#output = arg;
+    }
+}

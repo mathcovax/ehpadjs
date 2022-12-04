@@ -5,6 +5,7 @@ import sockets from "./sockets.js";
 import methods from "./methods.js";
 import gsons from "./gsons.js"
 import handlers from "./handlers.js";
+import scss from "./scss.js";
 
 export default class Launch {
     static get pages(){
@@ -33,5 +34,9 @@ export default class Launch {
 
     static get handlers(){
         return handlers;
+    }
+
+    static get scss(){
+        return scss;
     }
 }
